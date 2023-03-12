@@ -1,0 +1,28 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# remix.js
+/.cache
+/build
+/public/build
+
+# env files
+.env
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# typescript
+*.tsbuildinfo
+
+# IDE or Editor
+/.idea
+/.vscode
+
+# misc
+.DS_Store
+*.pem
