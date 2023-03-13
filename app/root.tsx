@@ -1,17 +1,23 @@
+import { json } from '@remix-run/node'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
-import type { LinksFunction, V2_MetaFunction } from '@remix-run/node'
+import type { LinksFunction, LoaderArgs, V2_MetaFunction } from '@remix-run/node'
+export const loader = (_args: LoaderArgs) => {
+  const isProd = process.env.NODE_ENV === 'production'
+  const packageVersion = isProd
+    ? process.env.npm_package_version
+    : `${process.env.npm_package_version}-${process.env.NODE_ENV}`
 
-const isProductionMode = process.env.NODE_ENV === 'production'
-const packageVersion = isProductionMode
-  ? process.env.npm_package_version
-  : `${process.env.npm_package_version}-${process.env.NODE_ENV}`
+  return json({
+    packageVersion: packageVersion ?? '',
+  })
+}
 
-export const meta: V2_MetaFunction = () => {
+export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
   return [
     { charSet: 'utf-8' },
     { name: 'viewport', content: 'width=device-width,initial-scale=1' },
     { title: 'Remix App' },
-    { name: 'application-version', content: packageVersion ?? '' },
+    { name: 'application-version', content: data.packageVersion },
   ]
 }
 
