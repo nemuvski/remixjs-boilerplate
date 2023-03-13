@@ -1,15 +1,19 @@
 import { json } from '@remix-run/node'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import type { LinksFunction, LoaderArgs, V2_MetaFunction } from '@remix-run/node'
+
+/**
+ * RootCatchBoundary
+ */
+export { default as CatchBoundary } from '~/components/RootCatchBoundary'
+
 export const loader = (_args: LoaderArgs) => {
   const isProd = process.env.NODE_ENV === 'production'
   const packageVersion = isProd
     ? process.env.npm_package_version
     : `${process.env.npm_package_version}-${process.env.NODE_ENV}`
 
-  return json({
-    packageVersion: packageVersion ?? '',
-  })
+  return json({ packageVersion })
 }
 
 export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
@@ -17,7 +21,7 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
     { charSet: 'utf-8' },
     { name: 'viewport', content: 'width=device-width,initial-scale=1' },
     { title: 'Remix App' },
-    { name: 'application-version', content: data.packageVersion },
+    { name: 'application-version', content: data?.packageVersion ?? '' },
   ]
 }
 
