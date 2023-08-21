@@ -3,9 +3,10 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@re
 import type { LinksFunction, LoaderArgs, V2_MetaFunction } from '@remix-run/node'
 
 /**
- * RootCatchBoundary
+ * ErrorBoundary
+ * @see {@link https://remix.run/docs/en/main/route/error-boundary}
  */
-export { default as CatchBoundary } from '~/components/RootCatchBoundary'
+export { default as ErrorBoundary } from '~/components/ErrorBoundary'
 
 export const loader = (_args: LoaderArgs) => {
   const isProd = process.env.NODE_ENV === 'production'
