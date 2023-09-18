@@ -1,6 +1,6 @@
 import { json } from '@remix-run/node'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
-import type { LinksFunction, LoaderArgs, V2_MetaFunction } from '@remix-run/node'
+import type { LinksFunction, MetaFunction } from '@remix-run/node'
 
 /**
  * ErrorBoundary
@@ -8,7 +8,7 @@ import type { LinksFunction, LoaderArgs, V2_MetaFunction } from '@remix-run/node
  */
 export { default as ErrorBoundary } from '~/components/ErrorBoundary'
 
-export const loader = (_args: LoaderArgs) => {
+export const loader = () => {
   const isProd = process.env.NODE_ENV === 'production'
   const packageVersion = isProd
     ? process.env.npm_package_version
@@ -17,7 +17,7 @@ export const loader = (_args: LoaderArgs) => {
   return json({ packageVersion })
 }
 
-export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     { charSet: 'utf-8' },
     { name: 'viewport', content: 'width=device-width,initial-scale=1' },

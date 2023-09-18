@@ -1,8 +1,7 @@
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import type { LoaderArgs } from '@remix-run/node'
 
-export const loader = (_args: LoaderArgs) => {
+export const loader = () => {
   return json({ message: 'It works!' })
 }
 
